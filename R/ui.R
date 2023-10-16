@@ -1,12 +1,13 @@
 # Rely on the 'WorldPhones' dataset in the datasets
 # package (which generally comes preloaded).
 library(shinyWidgets)
+library(nflschedule)
 
 # Use a fluid Bootstrap layout
 fluidPage(    
   
   # Give the page a title
-  titlePanel("Telephones by region"),
+  titlePanel("Points Allowed by Defense"),
   
   # Generate a row with a sidebar
   sidebarLayout(      
@@ -14,28 +15,39 @@ fluidPage(
     # Define the sidebar with one input
     sidebarPanel(
       
-      
-      # This is the first widget that will choose the source
+      # This widget will choose the source
       pickerInput(
         inputId = "sourceChoice",
         label = "Projection Source", 
         choices = c("CBS", "ESPN", "FantasyPros", "FantasySharks", "FFToday", 
                     "FleaFlicker", "NumberFire", "FantasyFootballNerd", "NFL"),
+        # selected="ESPN",
         options = list(
-          title = "Choose a source for projections")
+          title = "Choose a source")
       ),
-      hr(),
       helpText("Choose the source from where the projections will be grabbed."),
+      hr(),
       
-      # This is the first widget that will choose the player position
+      # This widget will choose the defense
+      pickerInput(
+        inputId = "defChoice",
+        label = "Defense", 
+        choices = nflschedule::nflteams,
+        options = list(
+          title = "Choose a team")
+      ),
+      helpText("Choose the source from where the projections will be grabbed."),
+      hr(),
+      
+      # This widget will choose the player position
       pickerInput(
         inputId = "positionChoice",
         label = "Player Position", 
         choices = c("QB", "RB", "WR", "TE", "DST"),
+        # selected="QB",
         options = list(
           title = "Choose a player position group")
       ),
-      hr(),
       helpText("Choose the player group you want to graph.")
       
     ),
